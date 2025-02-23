@@ -4,9 +4,9 @@ def calculate_xr_biseccion(a, b, decimales):
     return round((a + b) / 2, decimales)
 
 
-def bisection(fn, xi, xs, error = 0.05, decimales = 4):
+def metodo_biseccion(fn, xi, xs, error = 0.05, decimales = 4):
 
-    contador = 1
+    i = 1
     xr_anterior = None
     xr = 0
     iteraciones = []
@@ -21,9 +21,9 @@ def bisection(fn, xi, xs, error = 0.05, decimales = 4):
         fxs = util.evaluate_function(fn, xs, decimales)
         fxr = util.evaluate_function(fn, xr, decimales)
 
-        iteraciones.append((contador, xi, xs, xr, fxi, fxs, fxr))
+        iteraciones.append((i, xi, xs, xr, fxi, fxs, fxr))
 
-        columnas.append({"contador":contador,
+        columnas.append({"i":i,
                          "nuevox": f"xi = {xi}, xs = {xs}, xr = {xr}",
                          "intervalos": f"Intervalos de [{xi}, {xr}] y [{xr}, {xs}]",
                          "fxi":"f(Xi) =" + fn.replace('x',f"({xi})") + " = " + str(util.evaluate_function(fn, xi, decimales)),
@@ -33,7 +33,7 @@ def bisection(fn, xi, xs, error = 0.05, decimales = 4):
 
 
         if util.evaluate_function(fn, xr, decimales) == 0:
-                return xr
+                return iteraciones, columnas, xr
         elif util.evaluate_function(fn, xi, decimales) * util.evaluate_function(fn, xr, decimales) < 0:
                 xs = xr
                 # print(f"La raiz se encuentra en el intervalo [{a}, {b}] porque f(xi)*f(xr) < 0")
@@ -54,12 +54,12 @@ def bisection(fn, xi, xs, error = 0.05, decimales = 4):
                 #a = xr
                 print(f"La raiz se encuentra en el intervalo [{xi}, {xs}]")
         
-        contador += 1
+        i += 1
         
         if util.error_absoluto(xr_anterior, xr) <= error:
-                #print("contador: ", contador)
+                #print("i: ", i)
                 
-                return iteraciones, columnas 
+                return iteraciones, columnas, xr
 
 
     

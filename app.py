@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, send_from_directory
 
-from services import util, biseccion, regla_falsa
+from services import util, biseccion, regla_falsa, secante
 #from services import biseccion
 
 #print(biseccion.bisection())
@@ -20,6 +20,7 @@ def biseccion_route():
     error_data = False
     msg_data = ""
     error_bolzano, msg_bolzano = False, ""
+    xr = 0
     if request.method == 'POST':
         fn = request.form.get('fn','')
         a = float(request.form.get('a', 0))
@@ -34,7 +35,7 @@ def biseccion_route():
         if not error_data:
             error_bolzano, msg_bolzano = util.teorema_bolzano(fn, a, b, decimales)
             if not error_bolzano :
-                iteraciones, columnas = biseccion.bisection(fn, a, b, 0.005/100, decimales)
+                iteraciones, columnas, xr = biseccion.metodo_biseccion(fn, a, b, 0.005/100, decimales)
                 return render_template('biseccion.html', resultados = iteraciones, columnas = columnas,error_data = error_data, msg_data = msg_data, error_bolzano = error_bolzano, msg_bolzano = msg_bolzano)
             else:
                 return render_template('biseccion.html', resultados = iteraciones, columnas = columnas,error_data = error_data, msg_data = msg_data, error_bolzano = error_bolzano, msg_bolzano = msg_bolzano)
@@ -50,6 +51,7 @@ def reglafalsa():
     error_data = False
     msg_data = ""
     error_bolzano, msg_bolzano = False, ""
+    xr = 0
     if request.method == 'POST':
         
         fn = request.form.get('fn','')
@@ -59,27 +61,18 @@ def reglafalsa():
         decimales = int(request.form.get('decimales', 4))
         
         error_data, msg_data = util.validate_data(fn, a, b)    
-        #print(error_data, "  ", msg_data)
-        
-        #return render_template('reglafalsa.html', resultados = iteraciones, columnas = columnas,error_data = error_data, msg_data = msg_data, error_bolzano = error_bolzano, msg_bolzano = msg_bolzano)
         
         if not error_data:
-            #print("primer if")
             error_bolzano, msg_bolzano = util.teorema_bolzano(fn, a, b, decimales)
             if not error_bolzano :
-                #print("segundo if")
-                iteraciones, columnas = regla_falsa.regla_falsa(fn, a, b, 0.005/100, decimales)
+                iteraciones, columnas, xr = regla_falsa.metodo_regla_falsa(fn, a, b, 0.005/100, decimales)
                 return render_template('reglafalsa.html', resultados = iteraciones, columnas = columnas,error_data = error_data, msg_data = msg_data, error_bolzano = error_bolzano, msg_bolzano = msg_bolzano)
             else:
-                pass
                 return render_template('reglafalsa.html', resultados = iteraciones, columnas = columnas,error_data = error_data, msg_data = msg_data, error_bolzano = error_bolzano, msg_bolzano = msg_bolzano)
         else:
-            pass
             return render_template('reglafalsa.html', resultados = iteraciones, columnas = columnas,error_data = error_data, msg_data = msg_data, error_bolzano = error_bolzano, msg_bolzano = msg_bolzano)
     
-    #print(iteraciones, error_data, error_bolzano)
-    return render_template('reglafalsa.html', resultados = [], columnas = [], error_data = False, msg_data = "", error_bolzano = False, msg_bolzano = "")  
-    #return render_template('puntofijo.html')
+    return render_template('reglafalsa.html', resultados = iteraciones, columnas = columnas,error_data = error_data, msg_data = msg_data, error_bolzano = error_bolzano, msg_bolzano = msg_bolzano)
 
 @app.route('/puntofijo',  methods=['GET', 'POST'])
 def puntofijo():
@@ -87,7 +80,30 @@ def puntofijo():
 
 @app.route('/secante',  methods=['GET', 'POST'])
 def secante_route():
-    return render_template('secante.html')
+    
+    iteraciones = []
+    columnas = []
+    error_data = False
+    msg_data = ""
+    x2 = 0
+   
+    if request.method == 'POST':
+        fn = request.form.get('fn','')
+        x0 = float(request.form.get('a', 0))
+        x1 = float(request.form.get('b', 1))
+        ea = float(request.form.get('ea', 0.0001))
+        decimales = int(request.form.get('decimales', 4))
+        
+        error_data, msg_data = util.validate_data(fn, x0, x1) 
+    
+        if not error_data:
+            iteraciones, columnas, x2 = secante.metodo_secante(fn, x0, x1, 0.005/100, decimales)
+            
+    return render_template('secante.html', resultados = iteraciones, columnas = columnas, error_data = error_data, msg_data = msg_data)
+
+@app.route('/newtonraphson',  methods=['GET', 'POST'])
+def newton_raphson_route():
+    return render_template('newton_raphson.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

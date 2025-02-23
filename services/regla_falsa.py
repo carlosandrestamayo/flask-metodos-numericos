@@ -12,7 +12,7 @@ def calculate_xr_regla_falsa(fn, a, b, decimales):
     
     return round(xr, decimales)
 
-def regla_falsa(fn, xi, xs, error = 0.05, decimales = 4):
+def metodo_regla_falsa(fn, xi, xs, error = 0.05, decimales = 4):
 
     i = 1
     xr_anterior = None
@@ -41,7 +41,7 @@ def regla_falsa(fn, xi, xs, error = 0.05, decimales = 4):
 
 
         if util.evaluate_function(fn, xr, decimales) == 0:
-                return iteraciones, columnas
+                return iteraciones, columnas, xr
         elif util.evaluate_function(fn, xi, decimales) * util.evaluate_function(fn, xr, decimales) < 0:
                 xs = xr
                 # print(f"La raiz se encuentra en el intervalo [{a}, {b}] porque f(xi)*f(xr) < 0")
@@ -66,7 +66,7 @@ def regla_falsa(fn, xi, xs, error = 0.05, decimales = 4):
         
         if util.error_absoluto(xr_anterior, xr) <= error:
                 #print("i: ", i)
-                return iteraciones, columnas 
+                return iteraciones, columnas, xr 
 
 
     
