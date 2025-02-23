@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <title>{% block title %}Mi Aplicación Flask{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+</head>
+
+<body>
+    <nav class="navbar">
+        <a href="/biseccion">Biseccion</a>
+        <a href="/reglafalsa">Regla Falsa</a>
+        <a href="/puntofijo">Punto Fijo</a>
+        <a href="/secante">Secante</a>
+    </nav>
+    <!--<h1 class="container">Nombre Metodo</h1>-->
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Metodo de Bisección</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+</head>
+
+<body>
+    <nav class="navbar">
+        <a href="/biseccion">Biseccion</a>
+        <a href="/reglafalsa">Regla Falsa</a>
+        <a href="/puntofijo">Punto Fijo</a>
+    </nav>
+    <div class="container mt-5">
+        <h2 class="mb-3">Metodo de Biseccion</h2>
+        <form method="post">
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="fn">Función:</label>
+                    <input type="text" class="form-control" placeholder="Ejemplo x3 + 4*x -10" name="fn" required>
+                </div>
+                <div class="col-md-2">
+                    <label for="a">Xi:</label>
+                    <input type="number" class="form-control" placeholder="intervalo inferior" name="a" required
+                        value="0">
+                </div>
+                <div class="col-md-2">
+                    <label for="b">Xs:</label>
+                    <input type="number" class="form-control" placeholder="intervalo superior" name="b" required
+                        value="1">
+                </div>
+                <div class="col-md-2">
+                    <label for="ea">Error(%):</label>
+                    <input type="number" class="form-control" placeholder="Error en porcentaje" name="ea" required
+                        value="1e-6">
+                </div>
+                <div class="col-md-2">
+                    <label for="decimales">Precisión:</label>
+                    <input type="number" class="form-control" placeholder="precisión" name="decimales" required
+                        value="4">
+                </div>
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-primary mt-4">Calcular</button>
+                </div>
+            </div>
+            <!--<button type="submit" class="btn btn-primary mt-3">Enviar</button>-->
+        </form>
+    </div>
+</body>
+
+</html>
+
+
+
