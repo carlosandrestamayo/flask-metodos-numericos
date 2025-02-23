@@ -1,4 +1,4 @@
-from sympy import sympify, symbols, lambdify
+from sympy import sympify, symbols, lambdify, diff
 from sympy.core.sympify import SympifyError
 
 def validate_function(expresion):
@@ -41,6 +41,13 @@ def validate_data(fn, a, b):
         error, msg = verificar_limites(a, b)
 
     return error, msg
-            
+
+def derivate_function(fn):
+    x = symbols('x')
+    f = sympify(fn)
+    df = diff(fn, x)
+    #df_simplified = sympy.simplify(df)
+    
+    return df
     
     

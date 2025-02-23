@@ -1,16 +1,12 @@
 from flask import Flask, render_template, request, send_from_directory
 
-from services import util, biseccion, regla_falsa, secante
-#from services import biseccion
-
-#print(biseccion.bisection())
+from services import util, biseccion, regla_falsa, secante, newthon_raphson
 
 app = Flask(__name__)
 #app = Flask(__name__, static_folder="dist", static_url_path="")
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    #return send_from_directory("dist", "index.html")
     return render_template('index.html')
 
 @app.route('/biseccion', methods=['GET', 'POST'])
@@ -29,8 +25,6 @@ def biseccion_route():
         decimales = int(request.form.get('decimales', 4))
         
         error_data, msg_data = util.validate_data(fn, a, b)    
-        #print(error_data, "  ", msg_data)
-        
         
         if not error_data:
             error_bolzano, msg_bolzano = util.teorema_bolzano(fn, a, b, decimales)
@@ -103,7 +97,27 @@ def secante_route():
 
 @app.route('/newtonraphson',  methods=['GET', 'POST'])
 def newton_raphson_route():
-    return render_template('newton_raphson.html')
+    iteraciones = []
+    columnas = []
+    error_data = False
+    msg_data = ""
+    xr = 0
+    df = ""
+   
+    if request.method == 'POST':
+        fn = request.form.get('fn','')
+        x0 = float(request.form.get('a', 0))
+        ea = float(request.form.get('ea', 0.0001))
+        decimales = int(request.form.get('decimales', 4))
+        
+        error_data, msg_data = util.validate_function(fn) 
+        
+        if not error_data:
+            df = util.derivate_function(fn)
+            resultados, xr = newthon_raphson.newton_raphson_metodo(fn, df, x0, ea/100, decimales)
+            print(resultados)
+        
+    return render_template('newton_raphson.html', df = df, resultados = resultados, columnas= columnas, xr = xr)
 
 if __name__ == '__main__':
     app.run(debug=True)

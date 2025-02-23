@@ -3,6 +3,66 @@
 {% block title %}Metodo de Newton Raphson{% endblock %}
 
 {% block content %}
-    <h2>Contenido del Componente Newton Raphson</h2>
-    <p>Este es el contenido específico del componente Newton Raphson.</p>
+<div class="container mt-5">
+    <h2 class="mb-3">Metodo de Newton Raphson</h2>
+    <form method="post">
+        <div class="row">
+            <div class="col-md-3">
+                <label for="fn">Función:</label>
+                <input type="text" class="form-control" placeholder="Ejemplo x**3 - 3*x**2 + 3" name="fn" required
+                    value="x**3 - x - 1">
+            </div>
+            <div class="col-md-2">
+                <label for="a">X0:</label>
+                <input type="number" class="form-control" placeholder="intervalo inferior" name="a" required value="1">
+            </div>
+            <div class="col-md-2">
+                <label for="ea">Error(%):</label>
+                <input type="number" class="form-control" placeholder="Error en porcentaje" name="ea" required
+                    value="1e-6">
+            </div>
+            <div class="col-md-2">
+                <label for="decimales">Precisión:</label>
+                <input type="number" class="form-control" placeholder="precisión" name="decimales" required value="4">
+            </div>
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-primary mt-4">Calcular</button>
+            </div>
+        </div>
+    </form>
+    <h2 class="my-3">f'(x) = {{df}}</h2>
+
+    {% if resultados or True %}
+
+    <div class="container">
+
+        <h3>Resultados:</h3>
+        <table class="table mb-5">
+            <thead>
+                <tr>
+                    <th class="text-center" scope="col">Iteración</th>
+                    <th class="text-center" scope="col">xn</th>
+                    <th class="text-center" scope="col">xn+1</th>
+                    <th class="text-center" scope="col">ea</th>
+                    <!--<th class="text-center" scope="col">f(xs)</th>
+                    <th class="text-center" scope="col">f(xr)</th>-->
+                    <!--<th scope="col">f(c)</th>-->
+                </tr>
+            </thead>
+            {% for iteracion in resultados %}
+            <tr scope="row">
+                <td class="text-center">{{ iteracion[0] }}</td>
+                <td class="text-center">{{ iteracion[1] }}</td>
+                <td class="text-center">{{ iteracion[2] }}</td>
+                <td class="text-center">{{ iteracion[5] }}</td>
+                <!--<td class="text-center">{{ iteracion[4] }}</td>
+                <td class="text-center">{{ iteracion[5] }}</td>
+                <td class="text-center">{{ iteracion[6] }}</td>-->
+                <!--<td>{{ iteracion[4] }}</td>-->
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endif %}
+</div>
 {% endblock %}
