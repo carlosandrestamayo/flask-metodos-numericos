@@ -1,7 +1,7 @@
 {% extends 'index.html' %}
 
 {% block title %}Metodo de Biseccion{% endblock %}
-
+  
 {% block content %}
 <div class="container mt-5">
     <h2 class="mb-3">Metodo de Biseccion</h2>
@@ -34,6 +34,17 @@
             </div>
         </div>
     </form>
+    {% if resultados %}
+    <form method="post">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="imprimir" id="miCheckbox" >
+            <label class="form-check-label" for="miCheckbox">
+                Opción 1
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primary mt-4">Imprimir</button>
+    </form>
+    {% endif %}
 
     {% if resultados or True %}
     
@@ -53,7 +64,7 @@
                     <th class="text-center" scope="col">f(xi)</th>
                     <th class="text-center" scope="col">f(xs)</th>
                     <th class="text-center" scope="col">f(xr)</th>
-                    <!--<th scope="col">f(c)</th>-->
+                    <th class="text-center" scope="col">ea(%)</th>
                 </tr>
             </thead>
             {% for iteracion in resultados %}
@@ -65,7 +76,7 @@
                 <td class="text-center">{{ iteracion[4] }}</td>
                 <td class="text-center">{{ iteracion[5] }}</td>
                 <td class="text-center">{{ iteracion[6] }}</td>
-                <!--<td>{{ iteracion[4] }}</td>-->
+                <td class="text-center">{{ iteracion[7] }}</td>
             </tr>
             {% endfor %}
         </table>
@@ -80,6 +91,8 @@
                 <li class="list-group-item">{{col.fxi}}</li>
                 <li class="list-group-item">{{col.fxs}}</li>
                 <li class="list-group-item">{{col.fxr}}</li>
+                <li class="list-group-item">{{col.cambiox1}}</li>
+                <li class="list-group-item">{{col.cambiox2}}</li>
             </ul>
         </div>
         {% endfor %}

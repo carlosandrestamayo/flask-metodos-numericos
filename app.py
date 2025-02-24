@@ -103,12 +103,16 @@ def newton_raphson_route():
     msg_data = ""
     xr = 0
     df = ""
+    resultados = []
+    imprimir = ""
    
     if request.method == 'POST':
         fn = request.form.get('fn','')
         x0 = float(request.form.get('a', 0))
         ea = float(request.form.get('ea', 0.0001))
         decimales = int(request.form.get('decimales', 4))
+        imprimir = request.form.get('imprimir',"")
+        print("imprimir ",imprimir)
         
         error_data, msg_data = util.validate_function(fn) 
         

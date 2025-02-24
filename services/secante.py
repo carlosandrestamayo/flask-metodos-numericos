@@ -23,7 +23,7 @@ def metodo_secante(fn, x0, x1, error = 0.05, decimales = 4):
         fx1 = util.evaluate_function(fn, x1, decimales)
         fx2 = util.evaluate_function(fn, x2, decimales)
 
-        iteraciones.append((i, x1, x0, x2, fx0, fx1, fx2))
+        iteraciones.append((i, x0, x1, x2, fx0, fx1, fx2, "" if i == 1 else ea*100))
         print(iteraciones)
         columnas.append({"i":i,
                          "nuevox": f"X0 = {x0}, X1 = {x1}, xr = {x2}",

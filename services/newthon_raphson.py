@@ -9,7 +9,6 @@ def newton_raphson_metodo(fn, df, x0, error, decimales):
     iteraciones = []
     while True:
         ea = util.error_absoluto(x_anterior, xn)
-        print(i)
         f_x = util.evaluate_function(fn, xn, decimales)
         df_x = util.evaluate_function(df, xn, decimales)
         x_anterior = xn

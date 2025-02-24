@@ -1,6 +1,16 @@
 from sympy import sympify, symbols, lambdify, diff
 from sympy.core.sympify import SympifyError
 
+def convert_to_decimal(n, decimales):
+    
+    formato = f"{{:.{decimales}f}}"
+    return formato.format(n)
+    
+    #return f"{n}:.{decimales}f"
+    #return round(float(n), 4)
+    return f"{n}:.{decimales}f"
+    #return "{:.4f}".format(n)
+
 def validate_function(expresion):
     try:
         sympify(expresion)
