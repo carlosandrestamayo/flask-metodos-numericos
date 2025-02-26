@@ -80,6 +80,7 @@ def secante_route():
     error_data = False
     msg_data = ""
     x2 = 0
+    fn = ""
    
     if request.method == 'POST':
         fn = request.form.get('fn','')
@@ -93,7 +94,7 @@ def secante_route():
         if not error_data:
             iteraciones, columnas, x2 = secante.metodo_secante(fn, x0, x1, 0.005/100, decimales)
             
-    return render_template('secante.html', resultados = iteraciones, columnas = columnas, error_data = error_data, msg_data = msg_data)
+    return render_template('secante.html', resultados = iteraciones, columnas = columnas, error_data = error_data, msg_data = msg_data,fn=fn, x0 =x0, x1 = x1)
 
 @app.route('/newtonraphson',  methods=['GET', 'POST'])
 def newton_raphson_route():
