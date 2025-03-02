@@ -26,10 +26,14 @@ def verificar_limites(xi, xs):
    
 
 def evaluate_function(fn, a, decimales = 4):
-    x = symbols('x')
-    f = lambdify(x,fn)
-    #print(f(a))
-    return round(f(a), decimales)
+    try:
+        x = symbols('x')
+        f = lambdify(x,fn)
+        #print(f(a))
+        return round(f(a), decimales)
+    except TypeError as e:
+        print(e)
+    
     
 def teorema_bolzano(fn, a, b, decimales):
     fa = evaluate_function(fn, a, decimales)

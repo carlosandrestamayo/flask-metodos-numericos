@@ -1,29 +1,25 @@
 {% extends 'index.html' %}
 
-{% block title %} Metodo de la Secante {% endblock %}
+{% block title %}Metodo de Newton Raphson{% endblock %}
 
 {% block content %}
-<div class="container mt-5">  
-    <h2 class="mb-3">Metodo de la Secante</h2>
+<div class="container mt-5">
+    <h2 class="mb-3">Metodo de Newton Raphson Modificado</h2>
     <form method="post">
         <div class="row">
             <div class="col-md-3">
                 <label for="fn">Función:</label>
                 <input type="text" class="form-control" placeholder="Ejemplo x**3 - 3*x**2 + 3" name="fn" required
-                    value="x**3 - 3*x**2 + 3">
+                    value="x**3 - 2*x -6">
             </div>
             <div class="col-md-2">
                 <label for="a">X0:</label>
-                <input type="number" class="form-control" placeholder="intervalo inferior" name="a" required value="1">
-            </div>
-            <div class="col-md-2">
-                <label for="b">X1:</label>
-                <input type="number" class="form-control" placeholder="intervalo superior" name="b" required value="2">
+                <input type="number" class="form-control" placeholder="intervalo inferior" name="a" required value="0">
             </div>
             <div class="col-md-2">
                 <label for="ea">Error(%):</label>
-                <input type="number" class="form-control" placeholder="Error en porcentaje" name="ea" required
-                    value="1e-6">
+                <input type="text" class="form-control" placeholder="Error en porcentaje" name="ea" required
+                    value="0.005">
             </div>
             <div class="col-md-2">
                 <label for="decimales">Precisión:</label>
@@ -34,22 +30,21 @@
             </div>
         </div>
     </form>
+    <h2 class="my-3">f'(x) = {{df}}</h2>
+    <h2 class="my-3">f''(x) = {{df2}}</h2>
 
     {% if resultados or True %}
 
     <div class="container">
 
-        <h3 class="mt-4">Resultados: {{fn}}</h3>
-        <h5>xi-1: {{x0}}</h5>
-        <h5>xi: {{x1}}</h5>
+        <h3>Resultados:</h3>
         <table class="table mb-5">
             <thead>
                 <tr>
                     <th class="text-center" scope="col">Iteración</th>
-                    <th class="text-center" scope="col">xi-1</th>
-                    <th class="text-center" scope="col">xi</th>
-                    <th class="text-center" scope="col">xi+1</th>
-                    <th class="text-center" scope="col">ea(%)</th>
+                    <th class="text-center" scope="col">xn</th>
+                    <th class="text-center" scope="col">xn+1</th>
+                    <th class="text-center" scope="col">ea</th>
                     <!--<th class="text-center" scope="col">f(xs)</th>
                     <th class="text-center" scope="col">f(xr)</th>-->
                     <!--<th scope="col">f(c)</th>-->
@@ -60,9 +55,9 @@
                 <td class="text-center">{{ iteracion[0] }}</td>
                 <td class="text-center">{{ iteracion[1] }}</td>
                 <td class="text-center">{{ iteracion[2] }}</td>
-                <td class="text-center">{{ iteracion[3] }}</td>
-                <td class="text-center">{{ iteracion[7] }}</td>
-                <!--<td class="text-center">{{ iteracion[5] }}</td>
+                <td class="text-center">{{ iteracion[5] }}</td>
+                <!--<td class="text-center">{{ iteracion[4] }}</td>
+                <td class="text-center">{{ iteracion[5] }}</td>
                 <td class="text-center">{{ iteracion[6] }}</td>-->
                 <!--<td>{{ iteracion[4] }}</td>-->
             </tr>
@@ -70,6 +65,5 @@
         </table>
     </div>
     {% endif %}
-
 </div>
 {% endblock %}

@@ -8,12 +8,12 @@ def newton_raphson_metodo(fn, df, x0, error, decimales):
     tabla = []
     iteraciones = []
     while True:
-        ea = util.error_absoluto(x_anterior, xn)
+        
         f_x = util.evaluate_function(fn, xn, decimales)
         df_x = util.evaluate_function(df, xn, decimales)
-        x_anterior = xn
+        #x_anterior = xn
         xn1 = round(xn - f_x / df_x, decimales)
-        
+        ea = round(util.error_absoluto(xn, xn1)*100, decimales)
         tabla.append((i, xn, xn1, f_x, df_x, ea))
         
         iteraciones.append({
