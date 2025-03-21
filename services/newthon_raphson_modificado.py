@@ -21,6 +21,9 @@ def newton_raphson_modificado_metodo(fn, df,df2, x0, error, decimales):
         df2_x = util.evaluate_function(df2, xn, decimales)
         x_anterior = xn
 
+        print("f(xi): ", f_x, "f'(x): ", df_x, "f''(x): ", df2_x)
+        
+
         #numerador = (xn - ())
         denominador = df_x**2 - f_x * df2_x
         print("denominador: ", denominador)
@@ -31,6 +34,7 @@ def newton_raphson_modificado_metodo(fn, df,df2, x0, error, decimales):
 
 
         xn1 = round(xn - (f_x * df_x) / denominador, decimales)
+        print("xn1: ", xn1)
 
         print("df_x: ", df_x, " f_x: ", f_x, "df2_x: ", df2_x, " xn1: ", xn1, "denominador: ", denominador)
 

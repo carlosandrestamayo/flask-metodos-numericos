@@ -48,6 +48,7 @@ def reglafalsa():
     error_data = False
     msg_data = ""
     error_bolzano, msg_bolzano = False, ""
+    ea = 0
     xr = 0
     if request.method == 'POST':
         
@@ -61,15 +62,20 @@ def reglafalsa():
         
         if not error_data:
             error_bolzano, msg_bolzano = util.teorema_bolzano(fn, a, b, decimales)
+            print(util.teorema_bolzano(fn,a,b, decimales))
             if not error_bolzano :
-                iteraciones, columnas, xr = regla_falsa.metodo_regla_falsa(fn, a, b, 0.005/100, decimales)
-                return render_template('reglafalsa.html', resultados = iteraciones, columnas = columnas,error_data = error_data, msg_data = msg_data, error_bolzano = error_bolzano, msg_bolzano = msg_bolzano)
+                iteraciones, columnas, xr = regla_falsa.metodo_regla_falsa(fn, a, b, ea/100, decimales)
+                return render_template('reglafalsa.html', resultados = iteraciones, columnas = columnas,error_data = error_data, msg_data = msg_data, 
+                                       error_bolzano = error_bolzano, msg_bolzano = msg_bolzano, fn = fn, xi = a, xs = b, decimales= decimales, ea = ea)
             else:
-                return render_template('reglafalsa.html', resultados = iteraciones, columnas = columnas,error_data = error_data, msg_data = msg_data, error_bolzano = error_bolzano, msg_bolzano = msg_bolzano)
+                return render_template('reglafalsa.html', resultados = iteraciones, columnas = columnas,error_data = error_data, msg_data = msg_data, 
+                                       error_bolzano = error_bolzano, msg_bolzano = msg_bolzano , fn = fn, xi = a, xs = b, decimales= decimales, ea = ea)
         else:
-            return render_template('reglafalsa.html', resultados = iteraciones, columnas = columnas,error_data = error_data, msg_data = msg_data, error_bolzano = error_bolzano, msg_bolzano = msg_bolzano)
+            return render_template('reglafalsa.html', resultados = iteraciones, columnas = columnas,error_data = error_data, msg_data = msg_data, 
+                                   error_bolzano = error_bolzano, msg_bolzano = msg_bolzano, fn = fn, xi = a, xs = b, decimales= decimales, ea = ea)
     
-    return render_template('reglafalsa.html', resultados = iteraciones, columnas = columnas,error_data = error_data, msg_data = msg_data, error_bolzano = error_bolzano, msg_bolzano = msg_bolzano)
+    return render_template('reglafalsa.html', resultados = iteraciones, columnas = columnas,error_data = error_data, msg_data = msg_data, error_bolzano = error_bolzano, 
+                           msg_bolzano = msg_bolzano)
 
 
 @app.route('/puntofijo',  methods=['GET', 'POST'])
@@ -97,6 +103,9 @@ def puntofijo():
 @app.route('/secante',  methods=['GET', 'POST'])
 def secante_route():
     
+    #100*exp(0.2*x)-300
+    #x**3 - 3*x**2 + 3
+
     iteraciones = []
     columnas = []
     error_data = False
@@ -105,6 +114,8 @@ def secante_route():
     fn = ""
     x0 = 0
     x1 = 1
+    decimales = 0
+    ea = 0
     
    
     if request.method == 'POST':
@@ -119,7 +130,8 @@ def secante_route():
         if not error_data:
             iteraciones, columnas, x2 = secante.metodo_secante(fn, x0, x1, 0.005/100, decimales)
             
-    return render_template('secante.html', resultados = iteraciones, columnas = columnas, error_data = error_data, msg_data = msg_data,fn=fn, x0 =x0, x1 = x1)
+    return render_template('secante.html', resultados = iteraciones, columnas = columnas, error_data = error_data, msg_data = msg_data,fn=fn, x0 =x0, x1 = x1, 
+                           decimales = decimales, ea =ea)
 
 @app.route('/newtonraphson',  methods=['GET', 'POST'])
 def newton_raphson_route():

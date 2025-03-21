@@ -24,6 +24,14 @@ def metodo_secante(fn, x0, x1, error = 0.05, decimales = 4):
         fx2 = util.evaluate_function(fn, x2, decimales)
 
         iteraciones.append((i, x0, x1, x2, fx0, fx1, fx2, "" if i == 1 else ea*100))
+
+        """columnas.append({"i":i,
+                         "nuevox": f"xi = {xi}, xs = {xs}, xr = {xr}",
+                         "intervalos": f"Intervalos de [{xi}, {xr}] y [{xr}, {xs}]",
+                         "fxi":"f(Xi) =" + fn.replace('x',f"({xi})") + " = " + str(util.evaluate_function(fn, xi, decimales)),
+                         "fxs":"f(Xs) =" + fn.replace('x',f"({xs})") + " = " + str(util.evaluate_function(fn, xs, decimales)),
+                         "fxr":"f(Xr) =" + fn.replace('x',f"({xr})") + " = " + str(util.evaluate_function(fn, xr, decimales))})"""
+
         print(iteraciones)
         columnas.append({"i":i,
                          "nuevox": f"X0 = {x0}, X1 = {x1}, xr = {x2}",

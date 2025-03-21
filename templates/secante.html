@@ -10,20 +10,20 @@
             <div class="col-md-3">
                 <label for="fn">Función:</label>
                 <input type="text" class="form-control" placeholder="Ejemplo x**3 - 3*x**2 + 3" name="fn" required
-                    value="x**3 - 3*x**2 + 3">
+                    value="">
             </div>
             <div class="col-md-2">
                 <label for="a">X0:</label>
-                <input type="number" class="form-control" placeholder="intervalo inferior" name="a" required value="1">
+                <input type="text" class="form-control" placeholder="intervalo inferior" name="a" required value="">
             </div>
             <div class="col-md-2">
                 <label for="b">X1:</label>
-                <input type="number" class="form-control" placeholder="intervalo superior" name="b" required value="2">
+                <input type="text" class="form-control" placeholder="intervalo superior" name="b" required value="">
             </div>
             <div class="col-md-2">
                 <label for="ea">Error(%):</label>
-                <input type="number" class="form-control" placeholder="Error en porcentaje" name="ea" required
-                    value="1e-6">
+                <input type="text" class="form-control" placeholder="Error en porcentaje" name="ea" required
+                    value="0.005">
             </div>
             <div class="col-md-2">
                 <label for="decimales">Precisión:</label>
@@ -39,9 +39,12 @@
 
     <div class="container">
 
-        <h3 class="mt-4">Resultados: {{fn}}</h3>
+        <h3 class="mt-4">Resultados:</h3>
+        <h4>{{fn}} = 0</h4>
         <h5>xi-1: {{x0}}</h5>
         <h5>xi: {{x1}}</h5>
+        <h5>precisión: {{decimales}} decimales</h5>
+        <h5>error absoluto <= {{ea}} %</h5>
         <table class="table mb-5">
             <thead>
                 <tr>

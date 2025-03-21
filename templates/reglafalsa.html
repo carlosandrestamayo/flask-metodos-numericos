@@ -10,20 +10,20 @@
             <div class="col-md-3">
                 <label for="fn">Función:</label>
                 <input type="text" class="form-control" placeholder="Ejemplo x**3 + 4*x -10" name="fn" required
-                    value="x**3 +4*x**2 - 10">
+                    value="">
             </div>
             <div class="col-md-2">
                 <label for="a">Xi:</label>
-                <input type="number" class="form-control" placeholder="intervalo inferior" name="a" required value="0">
+                <input type="text" class="form-control" placeholder="intervalo inferior" name="a" required value="">
             </div>
             <div class="col-md-2">
                 <label for="b">Xs:</label>
-                <input type="number" class="form-control" placeholder="intervalo superior" name="b" required value="2">
+                <input type="text" class="form-control" placeholder="intervalo superior" name="b" required value="">
             </div>
             <div class="col-md-2">
                 <label for="ea">Error(%):</label>
-                <input type="number" class="form-control" placeholder="Error en porcentaje" name="ea" required
-                    value="1e-6">
+                <input type="text" class="form-control" placeholder="Error en porcentaje" name="ea" required
+                    value="0.005">
             </div>
             <div class="col-md-2">
                 <label for="decimales">Precisión:</label>
@@ -31,58 +31,70 @@
             </div>
             <div class="col-md-1">
                 <button type="submit" class="btn btn-primary mt-4">Calcular</button>
+                <button onclick="imprimirPagina()">Imprimir</button>
             </div>
         </div>
     </form>
 
     {% if resultados or True %}
-    
+    <script>
+        function imprimirPagina() {
+            window.print();
+        }
+    </script>
     <div class="container">
 
         <h3 class="my-3">Teorema de Bolzano</h3>
         <p>{{msg_bolzano}}</p>
 
-        <h3>Resultados:</h3>
-        <table class="table mb-5">
-            <thead>
-                <tr>
-                    <th class="text-center" scope="col">Iteración</th>
-                    <th class="text-center" scope="col">xi</th>
-                    <th class="text-center" scope="col">xs</th>
-                    <th class="text-center" scope="col">xr</th>
-                    <th class="text-center" scope="col">f(xi)</th>
-                    <th class="text-center" scope="col">f(xs)</th>
-                    <th class="text-center" scope="col">f(xr)</th>
-                    <!--<th scope="col">f(c)</th>-->
-                </tr>
-            </thead>
-            {% for iteracion in resultados %}
-            <tr scope="row">
-                <td class="text-center">{{ iteracion[0] }}</td>
-                <td class="text-center">{{ iteracion[1] }}</td>
-                <td class="text-center">{{ iteracion[2] }}</td>
-                <td class="text-center">{{ iteracion[3] }}</td>
-                <td class="text-center">{{ iteracion[4] }}</td>
-                <td class="text-center">{{ iteracion[5] }}</td>
-                <td class="text-center">{{ iteracion[6] }}</td>
-                <!--<td>{{ iteracion[4] }}</td>-->
-            </tr>
-            {% endfor %}
-        </table>
-        {% for col in columnas %}
-        <div class="card my-4">
-            <div class="card-header font-weight-bold">
-                Iteracion {{col.i}}
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">{{col.nuevox}}</li>
-                <li class="list-group-item">{{col.intervalos}}</li>
-                <li class="list-group-item">{{col.fxi}}</li>
-                <li class="list-group-item">{{col.fxs}}</li>
-                <li class="list-group-item">{{col.fxr}}</li>
-            </ul>
-        </div>
-        {% endfor %}
+        <h3 class="mt-4">Resultados: </h3>
+        <h4>{{fn}} = 0</h4>
+        <h5>xi: {{xi}}</h5>
+        <h5>xs: {{xs}}</h5>
+        <h5>precisión: {{decimales}} decimales</h5>
+        <h5>error absoluto <= {{ea}} %</h5>
+
+                <h3>Resultados:</h3>
+                <table class="table mb-5">
+                    <thead>
+                        <tr>
+                            <th class="text-center" scope="col">Iteración</th>
+                            <th class="text-center" scope="col">xi</th>
+                            <th class="text-center" scope="col">xs</th>
+                            <th class="text-center" scope="col">xr</th>
+                            <th class="text-center" scope="col">f(xi)</th>
+                            <th class="text-center" scope="col">f(xs)</th>
+                            <th class="text-center" scope="col">f(xr)</th>
+                            <!--<th scope="col">f(c)</th>-->
+                        </tr>
+                    </thead>
+                    {% for iteracion in resultados %}
+                    <tr scope="row">
+                        <td class="text-center">{{ iteracion[0] }}</td>
+                        <td class="text-center">{{ iteracion[1] }}</td>
+                        <td class="text-center">{{ iteracion[2] }}</td>
+                        <td class="text-center">{{ iteracion[3] }}</td>
+                        <td class="text-center">{{ iteracion[4] }}</td>
+                        <td class="text-center">{{ iteracion[5] }}</td>
+                        <td class="text-center">{{ iteracion[6] }}</td>
+                        <!--<td>{{ iteracion[4] }}</td>-->
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% for col in columnas %}
+                <div class="card my-4">
+                    <div class="card-header font-weight-bold">
+                        Iteracion {{col.i}}
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">{{col.nuevox}}</li>
+                        <li class="list-group-item">{{col.intervalos}}</li>
+                        <li class="list-group-item">{{col.fxi}}</li>
+                        <li class="list-group-item">{{col.fxs}}</li>
+                        <li class="list-group-item">{{col.fxr}}</li>
+                    </ul>
+                </div>
+                {% endfor %}
     </div>
     {% endif %}
 </div>

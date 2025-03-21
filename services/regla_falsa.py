@@ -21,15 +21,17 @@ def metodo_regla_falsa(fn, xi, xs, error = 0.05, decimales = 4):
     columnas = []
 
     while True:
-        xr_anterior = xr
+        print("while")
+        xr_anterior = xr    
         xr = calculate_xr_regla_falsa(fn, xi, xs, decimales)
+        
         ea = util.error_absoluto(xr_anterior, xr)
         
         fxi = util.evaluate_function(fn, xi, decimales)
         fxs = util.evaluate_function(fn, xs, decimales)
         fxr = util.evaluate_function(fn, xr, decimales)
 
-        iteraciones.append((i, xi, xs, xr, fxi, fxs, fxr))
+        iteraciones.append((i, xi, xs, xr, fxi, fxs, fxr))  
 
         columnas.append({"i":i,
                          "nuevox": f"xi = {xi}, xs = {xs}, xr = {xr}",
@@ -40,27 +42,47 @@ def metodo_regla_falsa(fn, xi, xs, error = 0.05, decimales = 4):
                          })
 
 
-        if util.evaluate_function(fn, xr, decimales) == 0:
-                return iteraciones, columnas, xr
-        elif util.evaluate_function(fn, xi, decimales) * util.evaluate_function(fn, xr, decimales) < 0:
-                xs = xr
-                # print(f"La raiz se encuentra en el intervalo [{a}, {b}] porque f(xi)*f(xr) < 0")
-                # print(f"Hacemos Xs = {xr}")
-                # iteracion = Iteracion(f"La raiz se encuentra en el intervalo [{a}, {b}] porque f(xi)*f(xr) < 0","Paragraph","normal")
-                # row_iteracion.append(iteracion)
-                # iteracion = Iteracion(f"Hacemos Xs = {xr}","Paragraph","normal")
-                # row_iteracion.append(iteracion)
-        elif util.evaluate_function(fn, xs, decimales) * util.evaluate_function(fn, xr, decimales) < 0:
-                xi = xr
-                # print(f"La raiz se encuentra en el intervalo [{a}, {b}] porque f(xi)*f(xr) > 0")
-                # print(f"Hacemos Xi = {xr}")
-                # iteracion = Iteracion(f"La raiz se encuentra en el intervalo [{a}, {b}] porque f(xi)*f(xr) > 0","Paragraph","normal")
-                # row_iteracion.append(iteracion)
-                # iteracion = Iteracion(f"Hacemos Xi = {xr}","Paragraph","normal")
-                # row_iteracion.append(iteracion)
+        print("i: ", i, "xi: ", xi, "xs: ", xs, "xr: ", xr, "xr_anterior: ", xr_anterior, "ea: ", ea, )
+        print("f(xi): ", fxi, "f(xr): ", fxr)
+        print(fxi*fxr)
+
+
+        if fxi * fxr == 0:
+               print("if")
+        elif fxi * fxr < 0:
+               xs = xr
+               print("elif 1-1")
+
+        elif fxi * fxr >= 0:
+               print("elif 1-2")
+               xi = xr
         else:
-                #a = xr
-                print(f"La raiz se encuentra en el intervalo [{xi}, {xs}]")
+               print("else")
+
+        # if util.evaluate_function(fn, xr, decimales) == 0:
+        #         print("if")
+        #         return iteraciones, columnas, xr
+        # elif util.evaluate_function(fn, xi, decimales) * util.evaluate_function(fn, xr, decimales) < 0:
+        #         print("elif")
+        #         xs = xr
+        #         # print(f"La raiz se encuentra en el intervalo [{a}, {b}] porque f(xi)*f(xr) < 0")
+        #         # print(f"Hacemos Xs = {xr}")
+        #         # iteracion = Iteracion(f"La raiz se encuentra en el intervalo [{a}, {b}] porque f(xi)*f(xr) < 0","Paragraph","normal")
+        #         # row_iteracion.append(iteracion)
+        #         # iteracion = Iteracion(f"Hacemos Xs = {xr}","Paragraph","normal")
+        #         # row_iteracion.append(iteracion)
+        # elif util.evaluate_function(fn, xs, decimales) * util.evaluate_function(fn, xr, decimales) >= 0:
+        #         print("elif2")
+        #         xi = xr
+        #         # print(f"La raiz se encuentra en el intervalo [{a}, {b}] porque f(xi)*f(xr) > 0")
+        #         # print(f"Hacemos Xi = {xr}")
+        #         # iteracion = Iteracion(f"La raiz se encuentra en el intervalo [{a}, {b}] porque f(xi)*f(xr) > 0","Paragraph","normal")
+        #         # row_iteracion.append(iteracion)
+        #         # iteracion = Iteracion(f"Hacemos Xi = {xr}","Paragraph","normal")
+        #         # row_iteracion.append(iteracion)
+        # else:
+        #         #a = xr
+        #         print(f"La raiz se encuentra en el intervalo [{xi}, {xs}]")
         
         i += 1
         
